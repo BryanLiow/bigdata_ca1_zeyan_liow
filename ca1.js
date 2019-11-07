@@ -68,6 +68,53 @@ db.movies.find({ $and: [{ synopsis : {$regex : ".*gold.*"}},{ synopsis : {$regex
 
 db.movies.deleteMany( { title: { $in: [ "Pee Wee Herman's Big Adventure", "Avatar"] } } )
 
+////7---------------------------------------------------------------------------------------
+
+db.users.insert(
+[ 
+{ username : "GoodGuyGreg", first_name : "Good Guy", last_name : "Greg" }, 
+{ username : "ScumbagSteve", full_name : {first : "Scumbag", last : "Steve"} }
+]
+)
+
+db.posts.insert(
+[ 
+{ user : ObjectId("5dbdde3672a327c0c4d45096"), title : "Passes out at party", body : "Wakes up early and cleans house" }, 
+{ user : ObjectId("5dbdde3672a327c0c4d45096"), title : "Steals your identity", body : "Raises your credit score" }, 
+{ user : ObjectId("5dbdde3672a327c0c4d45096"), title : "Reports a bug in your code", body : "Sends you a Pull Request" }, 
+{ user : ObjectId("5dbdde3672a327c0c4d45097"), title : "Borrows something", body : "Sells it" }, 
+{ user : ObjectId("5dbdde3672a327c0c4d45097"), title : "Borrows everything", body : "The end" }, 
+{ user : ObjectId("5dbdde3672a327c0c4d45097"), title : "Forks your repo on github", body : "Sets to private" }, 
+]
+)
+
+db.comments.insert(
+[ 
+{ username : "GoodGuyGreg", comment : "Hope you got a good deal!", post : ObjectId("5dbdf29d72a327c0c4d450a4") },
+{ username : "GoodGuyGreg", comment : "What's mine is yours!", post : ObjectId("5dbdf29d72a327c0c4d450a5") },
+{ username : "GoodGuyGreg", comment : "Don't violate the licensing agreement!", post : ObjectId("5dbdf29d72a327c0c4d450a6") },
+{ username : "ScumbagSteve", comment : "It still isn't clean", post : ObjectId("5dbdf29d72a327c0c4d450a1") },
+{ username : "ScumbagSteve", comment : "Denied your PR cause I found a hack", post : ObjectId("5dbdf29d72a327c0c4d450a3") }
+]
+)
+
+////8------------------------------------------------------------------------------------------
+
+db.users.find()
+
+db.posts.find()
+
+db.posts.find({user : db.users.findOne({username : "GoodGuyGreg"})._id})
+
+db.posts.find({user : db.users.findOne({username : "ScumbagSteve"})._id})
+
+db.comments.find()
+
+db.comments.find({username : "GoodGuyGreg"})
+
+db.comments.find({username : "ScumbagSteve"})
+
+db.comments.find({post : db.posts.findOne({title : "Reports a bug in your code"})._id})
 
 
 
