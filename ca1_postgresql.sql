@@ -84,5 +84,77 @@ DELETE FROM movies where title = 'Pee Wee Herman''s Big Adventure';
 
 DELETE FROM movies where title = 'Avatar';
 
+//7---------------------------------------------------------------------------------------------
+//Boshi
+CREATE TABLE fullname(
+	full_name TEXT UNIQUE,
+	first TEXT,
+	last TEXT
+);
+
+
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	username TEXT UNIQUE,
+	full_name TEXT references fullname(full_name),
+	first_name TEXT,
+	last_name TEXT
+);
+
+
+INSERT INTO fullname VALUES ('Scumbag Steve','Scumbag','Steve');
+
+INSERT INTO users (username, first_name, last_name) VALUES ('GoodGuyGreg','Good Guy','Greg');
+
+INSERT INTO users (username, full_name) VALUES ('ScumbagSteve','Scumbag Steve');
+
+CREATE TABLE posts(
+	id SERIAL PRIMARY KEY,
+	username TEXT REFERENCES users(username),
+	title TEXT,
+	body TEXT
+);
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Passes out at party','Wakes up early and cleans house');
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Steals your identity','Raises your credit score');
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Reports a bug in your code','Sends you a Pull Request');
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Borrows something','Sets to private');
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Borrows everything','The end');
+
+INSERT INTO posts (username, title, body) VALUES ('GoodGuyGreg','Forks your repo on github','Sells it');
+
+CREATE TABLE comments(
+	id SERIAL PRIMARY KEY,
+	username TEXT REFERENCES users(username),
+	comment TEXT,
+	post_id INT REFERENCES posts(id)
+);
+
+INSERT INTO comments (username, comment,post_id) VALUES ('GoodGuyGreg','Hope you got a good deal!',(SELECT id FROM posts WHERE title = 'Borrows something'));
+
+INSERT INTO comments (username, comment,post_id) VALUES ('GoodGuyGreg','What''s mine is yours!',(SELECT id FROM posts WHERE title = 'Borrows everything'));
+
+INSERT INTO comments (username, comment,post_id) VALUES ('GoodGuyGreg','Don''t violate the licensing agreement! ',(SELECT id FROM posts WHERE title = 'Forks your repo on github'));
+
+INSERT INTO comments (username, comment,post_id) VALUES ('ScumbagSteve','It still isn''t clean',(SELECT id FROM posts WHERE title = 'Passes out at party'));
+
+INSERT INTO comments (username, comment,post_id) VALUES ('ScumbagSteve','Denied your PR cause I found a hack',(SELECT id FROM posts WHERE title = 'Reports a bug in your code'));
+
+//8------------------------------------------------------------------------------------
+
+SELECT * FROM comments;
+
+SELECT * FROM comments where username = 'GoodGuyGreg';
+
+SELECT * FROM comments where username = 'ScumbagSteve';
+
+SELECT * FROM comments where post_id = (SELECT id FROM posts WHERE title = 'Reports a bug in your code');
+
+
+
 
 
