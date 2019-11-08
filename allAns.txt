@@ -1,6 +1,6 @@
 
 ////1----------------------------------------------------------------------------------
-use bigdata_ca1_zeyan_liow
+use bigdata_ca_zeyan_liow
 
 ////2-----------------------------------------------------------------------------------
 
@@ -79,6 +79,8 @@ db.users.insert(
 ]
 )
 
+db.users.find({},{username:1,_id:1})
+
 db.posts.insert(
 [ 
 { user : ObjectId("5dbdde3672a327c0c4d45096"), title : "Passes out at party", body : "Wakes up early and cleans house" }, 
@@ -89,6 +91,8 @@ db.posts.insert(
 { user : ObjectId("5dbdde3672a327c0c4d45097"), title : "Forks your repo on github", body : "Sets to private" }, 
 ]
 )
+
+db.posts.find({},{title:1,_id:1})
 
 db.comments.insert(
 [ 
@@ -276,46 +280,6 @@ SELECT * FROM comments where username = 'GoodGuyGreg';
 SELECT * FROM comments where username = 'ScumbagSteve';
 
 SELECT * FROM comments where post_id = (SELECT id FROM posts WHERE title = 'Reports a bug in your code');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
