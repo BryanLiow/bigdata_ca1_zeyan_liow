@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"bigdata_ca1_zeyan_liow.movies"}],"uuid":"dd053d96be7e4ca49786fa1080309f2d"}

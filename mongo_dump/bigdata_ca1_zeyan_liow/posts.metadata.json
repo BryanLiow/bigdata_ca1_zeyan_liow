@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"bigdata_ca1_zeyan_liow.posts"}],"uuid":"7f8c6c21233644409b82cb0d193f532b"}
